@@ -143,7 +143,9 @@ router.post("/", auth.required, function(req, res, next) {
       if (!user) {
         return res.sendStatus(401);
       }
-
+      if (typeof req.body.item.image === 'undefined') {
+        req.body.item.image = '/placeholder.png';
+      }
       var item = new Item(req.body.item);
 
       item.seller = user;
