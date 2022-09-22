@@ -59,3 +59,9 @@ body {
 .user-info {
   min-width: 800px;
 }
+
+@media screen and (max-width: 980px) {
+  .user-info {
+    min-width: 0px;
+  }
+}
