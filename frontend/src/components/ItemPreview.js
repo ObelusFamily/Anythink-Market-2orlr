@@ -18,12 +18,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const ItemPreview = (props) => {
-  const item = '';
-  if (typeof props.item === "string") {
-    if (props.item.length === 0) {
-      item = '/placeholder.png';
+  const item = props.item;
+  let img = '';
+  if (typeof item.image === "string") {
+    if (item.image.length === 0) {
+      img = '/placeholder.png';
     } else {
-      item = props.item;
+      img = item.image;
     }
   }
   const handleClick = (ev) => {
@@ -42,7 +43,7 @@ const ItemPreview = (props) => {
     >
       <img
         alt="item"
-        src={item.image}
+        src={img}
         className="card-img-top item-img"
         style={{ borderRadius: "20px" }}
       />
