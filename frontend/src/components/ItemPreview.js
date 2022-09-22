@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const ItemPreview = (props) => {
   const item = props.item;
-
+  console.error('This ites', item.image.length);
   const handleClick = (ev) => {
     ev.preventDefault();
     if (item.favorited) {
@@ -36,7 +36,7 @@ const ItemPreview = (props) => {
     >
       <img
         alt="item"
-        src={item.image}
+        src={item.image.length === 0 ? '/placeholder.png' : item.image}
         className="card-img-top item-img"
         style={{ borderRadius: "20px" }}
       />
