@@ -60,10 +60,10 @@ const TagFilterTab = (props) => {
 
 const Search = (props) => {
   console.log(props);
-  const [title, setTitle] = React.useState('');
+  const [title, setTitle] = React.useState("");
   const handleChange = (event) => {
     setTitle(event.target.value);
-  }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -73,14 +73,14 @@ const Search = (props) => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
   return (
     <form onSubmit={handleSubmit}>
       <input type="text" onChange={handleChange} />
       <input type="submit" value="Submit" />
     </form>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   ...state.itemList,
@@ -91,8 +91,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onTabClick: (tab, pager, payload) =>
     dispatch({ type: CHANGE_TAB, tab, pager, payload }),
-  onSearch: (payload) =>
-    dispatch({ type: CHANGE_TAB, payload })
+  onSearch: (payload) => dispatch({ type: CHANGE_TAB, payload }),
 });
 
 const MainView = (props) => {
@@ -122,6 +121,5 @@ const MainView = (props) => {
     </div>
   );
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainView);
