@@ -58,6 +58,30 @@ const TagFilterTab = (props) => {
   );
 };
 
+const Search = (props) => {
+  console.log(props);
+  const [title, setTitle] = React.useState('');
+  const handleChange = (event) => {
+    setTitle(event.target.value);
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      let result = await agent.Items.title(title);
+      props.onSearch(result);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="text" onChange={handleChange} />
+      <input type="submit" value="Submit" />
+    </form>
+  );
+}
+
 const mapStateToProps = (state) => ({
   ...state.itemList,
   tags: state.home.tags,
@@ -67,11 +91,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onTabClick: (tab, pager, payload) =>
     dispatch({ type: CHANGE_TAB, tab, pager, payload }),
+  onSearch: (payload) =>
+    dispatch({ type: CHANGE_TAB, payload })
 });
 
 const MainView = (props) => {
   return (
     <div>
+      <Search onSearch={props.onSearch} />
       <div className="feed-toggle">
         <ul className="nav nav-tabs">
           <YourFeedTab
@@ -79,7 +106,6 @@ const MainView = (props) => {
             tab={props.tab}
             onTabClick={props.onTabClick}
           />
-
           <GlobalFeedTab tab={props.tab} onTabClick={props.onTabClick} />
 
           <TagFilterTab tag={props.tag} />
@@ -96,5 +122,6 @@ const MainView = (props) => {
     </div>
   );
 };
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainView);
